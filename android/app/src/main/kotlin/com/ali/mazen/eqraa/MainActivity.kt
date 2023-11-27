@@ -1,4 +1,4 @@
-package ali.mazen.eqraa
+package com.ali.mazen.eqraa
 
 
 import io.flutter.embedding.android.FlutterActivity

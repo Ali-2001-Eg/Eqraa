@@ -58,7 +58,7 @@ class IndexScreen extends StatelessWidget {
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
-              icon: const Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
                 if (cubit.isPlaying) {
                   cubit.togglePlay();
@@ -68,12 +68,11 @@ class IndexScreen extends StatelessWidget {
             ),
           ),
           body: myPanel(
-              screen: WillPopScope(
-                onWillPop: () async {
+              screen: PopScope(
+                onPopInvoked: (t) {
                   if (cubit.isPlaying) {
                     cubit.togglePlay();
                   }
-                  return true;
                 },
                 child: MediaQuery.removePadding(
                   context: context,
@@ -160,8 +159,7 @@ class IndexScreen extends StatelessWidget {
                                   const Spacer(),
                                   Column(
                                     children: [
-                                      defaultText(
-                                          text: "اّياتها", fontsize: 25),
+                                      defaultText(text: "آياتها", fontsize: 25),
                                       SizedBox(
                                         height: 10.h,
                                       ),

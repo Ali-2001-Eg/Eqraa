@@ -52,13 +52,23 @@ class MyApp extends StatelessWidget {
           locale: const Locale(
             'ar',
           ),
+          builder: (context, child) {
+            return Directionality(
+                textDirection: TextDirection.rtl, child: child!);
+          },
           theme: ThemeData(
-            appBarTheme: AppBarTheme(backgroundColor: HexColor('22211f')),
+            appBarTheme: AppBarTheme(
+                backgroundColor: HexColor('22211f'),
+                titleTextStyle: const TextStyle(color: Colors.white),
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                )),
             scaffoldBackgroundColor: HexColor('fefbec'),
             fontFamily: 'QuranFont',
+            iconTheme: const IconThemeData(color: Colors.white),
           ),
           debugShowCheckedModeBanner: false,
-          home: HomeScreen(),
+          home: const HomeScreen(),
         );
       },
     );

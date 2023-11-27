@@ -93,7 +93,10 @@ AppBar defaultAppBar(
     AppBar(
       title: Text(
         text,
-        style: TextStyle(fontSize: fontSize),
+        style: TextStyle(
+          fontSize: fontSize,
+          color: Colors.white,
+        ),
       ),
       actions: actions,
       centerTitle: true,
@@ -180,19 +183,18 @@ Widget myPanel({
                       type: PageTransitionType.bottomToTop));
             },
             child: Container(
-                padding: EdgeInsets.fromLTRB(2.w, .2.h, 0.3.w, 1.w),
+                // padding: EdgeInsets.fromLTRB(2.w, .2.h, 0.3.w, 1.w),
                 color: HexColor('22211f').withOpacity(0.95),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(
                       'assets/images/العفاسي.jpg',
                       //width: 20,
                     ),
-                    SizedBox(
-                      width: 3.w,
-                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         defaultText(
                           textColor: Colors.white,
@@ -208,9 +210,9 @@ Widget myPanel({
                             textOverflow: TextOverflow.ellipsis),
                       ],
                     ),
-                    const Spacer(),
+                    // const Spacer(),
                     Align(
-                        //widthFactor: .6,
+                        widthFactor: .1,
                         alignment: Alignment.centerRight,
                         child: playIconButton(
                           cubit: cubit,
@@ -219,7 +221,7 @@ Widget myPanel({
                         )),
                     Align(
                       alignment: AlignmentDirectional.topEnd,
-                      widthFactor: 1,
+                      widthFactor: .6,
                       child: IconButton(
                         icon: CircleAvatar(
                           radius: 13,
