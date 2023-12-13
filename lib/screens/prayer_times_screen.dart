@@ -32,17 +32,18 @@ class PrayerTimes extends StatelessWidget {
     if (!internetConnection && !cubit.gotPrayerTimes) {
       defaultFlutterToast(msg: "يرجي الاتصال بالانترنت");
       Future.delayed(
-        const Duration(seconds: 3),
+        const Duration(milliseconds: 200),
         () => {
           Navigator.pop(context),
         },
       );
     }
+    //checkInternetConnection(cubit, isPrayerTimesRequest: true);
     checkLocationPermission().then((value) {
       if (!locationPermission && !cubit.gotPrayerTimes) {
         defaultFlutterToast(msg: "يرجي تفعيل ال Location");
         Future.delayed(
-          const Duration(seconds: 3),
+          const Duration(milliseconds: 200),
           () => {
             Navigator.pop(context),
           },

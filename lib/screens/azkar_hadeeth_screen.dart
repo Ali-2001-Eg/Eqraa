@@ -12,6 +12,7 @@ import '../components/components.dart';
 import '../components/constants.dart';
 import '../cubit/cubit.dart';
 
+// ignore: must_be_immutable
 class AzkarAndHadeethScreen extends StatelessWidget {
   int index = 0;
   String title = "";
@@ -36,6 +37,8 @@ class AzkarAndHadeethScreen extends StatelessWidget {
       azkar = AzkarAndTsabeeh.tsabee7;
       title = "التسابيحُ";
       cubit.azkarTimes = List.filled(azkar.length, 0);
+      checkInternetConnection(AppCubit.get(context),
+          isPrayerTimesRequest: false);
     } else if (index == 4) {
       azkar = AzkarAndTsabeeh.ad3ya;
       title = "أدعية";

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -8,7 +9,6 @@ import 'package:eqraa/components/constants.dart';
 import 'package:eqraa/cubit/states.dart';
 import 'package:eqraa/models/hadeeth.dart';
 import 'package:eqraa/models/prayertimes.dart';
-import 'package:quran/quran.dart';
 import '../shared/network/dio.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -28,7 +28,9 @@ class AppCubit extends Cubit<AppStates> {
       long = position.longitude.toString();
       emit(GotLocationAppState());
     } else {
-      print('Permission Denied');
+      if (kDebugMode) {
+        print('Permission Denied');
+      }
     }
   }
 
@@ -100,7 +102,9 @@ class AppCubit extends Cubit<AppStates> {
           fajrDurationInHours = elFajrHours - DateTime.now().hour;
           fajrDurationInMins = elFajrMins - DateTime.now().minute;
         }).catchError((error) {
-          print(error.toString());
+          if (kDebugMode) {
+            print(error.toString());
+          }
         });
       });
     }

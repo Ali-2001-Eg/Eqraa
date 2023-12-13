@@ -1,7 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -10,7 +8,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eqraa/components/constants.dart';
 import 'package:eqraa/cubit/cubit.dart';
-import 'package:eqraa/models/hadeeth.dart';
 import 'package:eqraa/screens/surah_screen.dart';
 import 'package:we_slide/we_slide.dart';
 
@@ -317,14 +314,13 @@ Future<bool?> defaultFlutterToast({
         textColor: textColor,
         fontSize: 16.0);
 
-void checkInternetConnection(AppCubit cubit) {
+void checkInternetConnection(AppCubit cubit,
+    {bool isPrayerTimesRequest = false}) {
   InternetConnectionChecker().onStatusChange.listen((status) {
     if (status == InternetConnectionStatus.connected) {
       internetConnection = true;
-
       if (!cubit.gotHadeeths) {
-        cubit.getHadeeth();
-        cubit.getPrayerTime();
+        isPrayerTimesRequest ? cubit.getPrayerTime() : cubit.getHadeeth();
       }
     } else {
       internetConnection = false;
@@ -332,12 +328,12 @@ void checkInternetConnection(AppCubit cubit) {
   });
 }
 
-Future<void> checkLocationPermission() async {
-  await Geolocator.isLocationServiceEnabled().then((value) {
-    if (value) {
-      locationPermission = true;
-    } else {
-      locationPermission = false;
-    }
-  });
-}
+Future<bool> checkLocationPermission() async =>
+    await Geolocator.isLocationServiceEnabled().then((value) {
+      if (value) {
+        locationPermission = true;
+      } else {
+        locationPermission = false;
+      }
+      return value;
+    });

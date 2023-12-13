@@ -1,6 +1,8 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quran/quran.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:eqraa/components/components.dart';
@@ -68,33 +70,38 @@ class SurahScreen extends StatelessWidget {
                 playIconButton(
                     cubit: cubit, surahNumber: surahNumber, context: context),
               ]),
-              body: PageView.builder(
-                itemCount: numsOfPages.length,
-                reverse: true,
-                controller: pageController,
-                onPageChanged: (page) {
-                  if (page == numsOfPages.length - 1) {
-                    print('surah is ended');
-                    numsOfPages[page]++;
-                  }
-                },
-                itemBuilder: (context, index) {
-                  cubit.setCurrentPageNumber(numsOfPages[index]);
+              body: Directionality(
+                textDirection: TextDirection.ltr,
+                child: PageView.builder(
+                  itemCount: numsOfPages.length,
+                  reverse: true,
+                  controller: pageController,
+                  onPageChanged: (page) {
+                    if (page == numsOfPages.length - 1) {
+                      if (kDebugMode) {
+                        print('surah is ended');
+                      }
+                      numsOfPages[page]++;
+                    }
+                  },
+                  itemBuilder: (context, index) {
+                    cubit.setCurrentPageNumber(numsOfPages[index]);
 
-                  return Stack(
-                      alignment: AlignmentDirectional.topStart,
-                      children: [
-                        Image.asset(
-                            "assets/quranImages/${numsOfPages[index]}.png",
-                            fit: BoxFit.fill,
-                            width: double.infinity,
-                            height: double.infinity),
-                        if (index == pageController.initialPage &&
-                            surahName == surahNameFromSharedPref)
-                          Image.asset("assets/images/savedPageNumIcon.png",
-                              height: 40.sp),
-                      ]);
-                },
+                    return Stack(
+                        alignment: AlignmentDirectional.topStart,
+                        children: [
+                          Image.asset(
+                              "assets/quranImages/${numsOfPages[index]}.png",
+                              fit: BoxFit.fill,
+                              width: double.infinity,
+                              height: double.infinity),
+                          if (index == pageController.initialPage &&
+                              surahName == surahNameFromSharedPref)
+                            Image.asset("assets/images/savedPageNumIcon.png",
+                                height: 40.sp),
+                        ]);
+                  },
+                ),
               )),
         );
       },
